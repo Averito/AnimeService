@@ -37,10 +37,10 @@ export const MainLayout = ({children}) => {
               <HomeOutlined />
             </Link>
           </Breadcrumb.Item>
-          {getRoutesArray(router.route).map(route => (
+          {getRoutesArray(router.asPath).map(route => (
             <React.Fragment key={route}>
               {route.includes("[") || route.includes("]") ? "" : <Breadcrumb.Item>
-                <Link passHref href={route}>{getBreadcrumbName(route.split("/").pop())}</Link>
+                <Link passHref href={route}>{getBreadcrumbName(route.split("/").pop()).replaceAll("%20", " ")}</Link>
               </Breadcrumb.Item>}
             </React.Fragment>
           ))}

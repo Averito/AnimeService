@@ -38,7 +38,7 @@ export const getServerSideProps = async (context) => {
 		const currentPage = Number(context.params.page)
 		const limit = 20
 
-		const animeList = await API.getAnime((currentPage - 1) * limit, limit)
+		const animeList = await API.getAnimeList((currentPage - 1) * limit, limit)
 
 		return {
 			props: { animeList }
