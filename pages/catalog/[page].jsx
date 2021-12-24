@@ -19,7 +19,6 @@ export default function Page({ animeList }) {
 	// useState
 	const [search, setSearch] = useInput("")
 
-	const [counter, setCounter] = useState(0)
 	const [animeListState, setAnimeListState] = useState(animeList)
 	// useState
 
