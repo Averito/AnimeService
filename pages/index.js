@@ -7,11 +7,13 @@ export default function Home({ animeList, context }) {
 	const animeL = animeList?.data || []
 
 	return (
-		<AnimeCards>
-			{animeL.map(anime => (
-				<AnimeComponent anime={anime} key={anime.id} />
-			))}
-		</AnimeCards>
+		<>
+			<AnimeCards>
+				{animeL.map(anime => (
+					<AnimeComponent anime={anime} key={anime.id} />
+				))}
+			</AnimeCards>
+		</>
 	)
 }
 

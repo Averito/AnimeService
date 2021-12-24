@@ -1,14 +1,25 @@
+import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
 import Head from "next/head"
-import { Pagination } from "antd"
+import { Input, Pagination } from "antd"
 
 import API from "../../api/API"
 import { AnimeComponent } from "../../components/anime/AnimeComponent"
 import { AnimeCards } from "../../components/home/Home.styled"
+import { useInput } from "../../hooks/useInput"
 
-export default function Page({animeList}) {
+const LIMIT = 20
+
+export default function Page({ animeList }) {
 
 	const router = useRouter()
+
+	// useState
+	const [search, setSearch] = useInput("")
+
+	const [counter, setCounter] = useState(0)
+	const [animeListState, setAnimeListState] = useState(animeList)
+	// useState
 
 	// methods
 	const onChangePaginationHandler = (page) => {
@@ -19,14 +30,34 @@ export default function Page({animeList}) {
 	}
 	// methods
 
+	useEffect(() => {
+		const getDataFromServer = async () => {
+			try {
+				const currentPage = Number(router.query.page)
+				const textFilter = encodeURI(search).replaceAll("/", "%2F")
+
+				const animeL = await API.getAnimeList((currentPage - 1) * LIMIT, LIMIT, { text: textFilter })
+
+				setAnimeListState(prev => prev = animeL)
+			} catch {
+				router.push(`${window.location.origin}/catalog/1`)
+			}
+		}
+
+		getDataFromServer()
+	}, [search, router.query.page, router])
+
 	return (
 		<>
 			<Head>
 				<title>AnimeService - Catalog</title>
 			</Head>
-			<Pagination style={{margin: "0 0 10px 0"}} total={Math.ceil(animeList.meta.count / 20 * 10)} onChange={onChangePaginationHandler} />
+			<Pagination style={{ margin: "0 0 10px 0" }} current={Number(router.query.page)}
+									total={Math.ceil(animeListState.meta.count / 20 * 10)} onChange={onChangePaginationHandler} />
+			<Input style={{ margin: "0 0 10px 0", maxWidth: "300px" }} type="text" placeholder="Search" value={search}
+						 onChange={setSearch} />
 			<AnimeCards>
-				{animeList.data.map(anime => (
+				{animeListState.data.map(anime => (
 					<AnimeComponent anime={anime} key={anime.id} />
 				))}
 			</AnimeCards>
@@ -36,9 +67,11 @@ export default function Page({animeList}) {
 export const getServerSideProps = async (context) => {
 	try {
 		const currentPage = Number(context.params.page)
-		const limit = 20
+		const filterText = context.params.filter
 
-		const animeList = await API.getAnimeList((currentPage - 1) * limit, limit)
+		console.log(context.params)
+
+		const animeList = await API.getAnimeList((currentPage - 1) * LIMIT, LIMIT)
 
 		return {
 			props: { animeList }

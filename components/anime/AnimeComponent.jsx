@@ -11,7 +11,7 @@ export const AnimeComponent = ({anime}) => {
 			<AnimeCardInfo>
 				<div>
 					<h2 style={{cursor: "pointer"}}>
-						<Link passHref href={`/catalog/anime/${attributes.canonicalTitle}`}>
+						<Link passHref href={`/catalog/anime/${encodeURI(attributes.canonicalTitle).replaceAll("/", "%2F")}`}>
 							{attributes.canonicalTitle}
 						</Link>
 					</h2>

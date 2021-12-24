@@ -40,7 +40,7 @@ export const MainLayout = ({children}) => {
           {getRoutesArray(router.asPath).map(route => (
             <React.Fragment key={route}>
               {route.includes("[") || route.includes("]") ? "" : <Breadcrumb.Item>
-                <Link passHref href={route}>{getBreadcrumbName(route.split("/").pop()).replaceAll("%20", " ")}</Link>
+                <Link passHref href={route}>{decodeURI(getBreadcrumbName(route.split("/").pop())).replaceAll("%2F", "/")}</Link>
               </Breadcrumb.Item>}
             </React.Fragment>
           ))}

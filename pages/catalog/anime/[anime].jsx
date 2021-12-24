@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import Head from "next/head"
+
 import API from "../../../api/API"
 
 export default function Anime({animeInfo}) {
@@ -13,7 +14,7 @@ export default function Anime({animeInfo}) {
 	return (
 		<div>
 			<Head>
-				<title>AnimeServce - {router.query.anime.replaceAll("%20", " ")}</title>
+				<title>AnimeServce - {decodeURI(router.query.anime)}</title>
 			</Head>
 			{attributes.canonicalTitle}
 		</div>
@@ -28,7 +29,7 @@ export const getServerSideProps = async (context) => {
 
 		return {
 			props: {
-				animeInfo: requestResult.data.find(anime => anime.attributes.canonicalTitle === animeName.replaceAll("%20", " "))
+				animeInfo: requestResult.data.find(anime => anime.attributes.canonicalTitle === decodeURI(animeName))
 			}
 		}
 	} catch (error) {
