@@ -14,6 +14,8 @@ export default function Page({ animeList }) {
 
 	const router = useRouter()
 
+	const currentPage = Number(router.query.page)
+
 	// useState
 	const [search, setSearch] = useInput("")
 
@@ -33,7 +35,6 @@ export default function Page({ animeList }) {
 	useEffect(() => {
 		const getDataFromServer = async () => {
 			try {
-				const currentPage = Number(router.query.page)
 				const textFilter = encodeURI(search).replaceAll("/", "%2F")
 
 				const animeL = await API.getAnimeList((currentPage - 1) * LIMIT, LIMIT, { text: textFilter })
@@ -52,7 +53,7 @@ export default function Page({ animeList }) {
 			<Head>
 				<title>AnimeService - Catalog</title>
 			</Head>
-			<Pagination style={{ margin: "0 0 10px 0" }} current={Number(router.query.page)}
+			<Pagination style={{ margin: "0 0 10px 0" }} current={currentPage}
 									total={Math.ceil(animeListState.meta.count / 20 * 10)} onChange={onChangePaginationHandler} />
 			<Input style={{ margin: "0 0 10px 0", maxWidth: "300px" }} type="text" placeholder="Search" value={search}
 						 onChange={setSearch} />
