@@ -18,15 +18,18 @@ export const AnimeCardInfo = styled.div`
 	transition: all 0.2s ease;
 	padding: 0 10px;
 	h2 {text-align: center;}
-	h2,p {
+	h2,p,a {
 		font-weight: 600;
 		color: transparent;
 	}
 	&:hover {
 		background: #323232;
 		opacity: 0.7;
-		h2,p {
+		h2,p,a {
 			color: white;
+		}
+		a:hover {
+			color: #0C90FF;
 		}
 	}
 	p:last-of-type {

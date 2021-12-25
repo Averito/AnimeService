@@ -45,7 +45,7 @@ export default function Page({ animeList }) {
 		}
 
 		getDataFromServer()
-	}, [search, router.query.page, router])
+	}, [search, router, currentPage])
 
 	return (
 		<>
@@ -68,8 +68,6 @@ export const getServerSideProps = async (context) => {
 	try {
 		const currentPage = Number(context.params.page)
 		const filterText = context.params.filter
-
-		console.log(context.params)
 
 		const animeList = await API.getAnimeList((currentPage - 1) * LIMIT, LIMIT)
 

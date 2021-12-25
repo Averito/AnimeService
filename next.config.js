@@ -5,12 +5,12 @@ module.exports = {
       {
         source: "/catalog",
         destination: "/catalog/1",
-        permanent: false
+        permanent: true
       },
       {
         source: "/catalog/anime",
         destination: "/catalog/1",
-        permanent: false
+        permanent: true
       }
     ]
   }
