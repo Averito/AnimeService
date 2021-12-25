@@ -34,7 +34,7 @@ export default function Page({ animeList }) {
 	useEffect(() => {
 		const getDataFromServer = async () => {
 			try {
-				const textFilter = encodeURI(search).replaceAll("/", "%2F")
+				const textFilter = encodeURI(search.replaceAll("/", "%2F"))
 
 				const animeL = await API.getAnimeList((currentPage - 1) * LIMIT, LIMIT, { text: textFilter })
 
