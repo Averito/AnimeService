@@ -17,7 +17,7 @@ export default function Home({ animeList, context }) {
 	)
 }
 
-export async function getStaticProps(context) {
+export async function getInitialProps(context) {
 	try {
 		const animeList = await API.getAnimeList()
 
