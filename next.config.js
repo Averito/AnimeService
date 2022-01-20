@@ -9,7 +9,7 @@ module.exports = {
       },
       {
         source: "/catalog/anime",
-        destination: "/catalog/1",
+        destination: "/catalog",
         permanent: true
       }
     ]

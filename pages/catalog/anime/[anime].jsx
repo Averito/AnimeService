@@ -2,6 +2,7 @@ import { useRouter } from "next/router"
 import Head from "next/head"
 
 import API from "../../../api/API"
+import { SelectedAnimeComponent } from "../../../components/anime/selected/SelectedAnimeComponent"
 
 export default function Anime({animeInfo}) {
 
@@ -9,14 +10,12 @@ export default function Anime({animeInfo}) {
 
 	const { attributes } = animeInfo
 
-	console.log(animeInfo)
-
 	return (
 		<div>
 			<Head>
 				<title>AnimeServce - {decodeURI(router.query.anime)}</title>
 			</Head>
-			{attributes.canonicalTitle}
+			<SelectedAnimeComponent anime={animeInfo} />
 		</div>
 	)
 }

@@ -17,13 +17,11 @@ export default function Home({ animeList, context }) {
 	)
 }
 
-export async function getInitialProps(context) {
+Home.getInitialProps = async (context) => {
 	try {
 		const animeList = await API.getAnimeList()
 
-		return {
-			props: { animeList }
-		}
+		return { animeList }
 	} catch (err) {
 		console.log(err)
 	}
